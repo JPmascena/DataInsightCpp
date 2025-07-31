@@ -8,7 +8,7 @@
 using namespace std;
 
 int main() {
-    ifstream arquivo("dados.csv");
+    ifstream arquivo("C:\\Users\\Pichau\\OneDrive\\Documentos\\basic-data-analysis-cpp\\src\\output\\notas.csv");
 
     if (!arquivo.is_open()) {
         cout << "Erro ao abrir o arquivo CSV." << endl;
@@ -25,14 +25,18 @@ int main() {
     while (getline(arquivo, linha)) {
         stringstream ss(linha);
         string nome, notaStr;
-        getline(ss, nome, ',');
-        getline(ss, notaStr, ',');
+        getline(ss, nome, ','); // nome
 
-        try {
-            float nota = stof(notaStr);
-            notas.push_back(nota);
-        } catch (...) {
-            cout << "Erro ao converter a nota: " << notaStr << endl;
+        // Lê as 3 notas
+        for (int i = 0; i < 3; i++) {
+            if (getline(ss, notaStr, ',')) {
+                try {
+                    float nota = stof(notaStr);
+                    notas.push_back(nota);
+                } catch (...) {
+                    cout << "Erro ao converter a nota: " << notaStr << endl;
+                }
+            }
         }
     }
 
@@ -68,9 +72,9 @@ int main() {
     float maximo = notas.back();
 
     // Exibe os resultados
-    cout << "\n📊 Estatísticas:" << endl;
-    cout << "------------------------" << endl;
-    cout << "Quantidade:      " << n << endl;
+    cout << "\n📊 Estatísticas das Notas:" << endl;
+    cout << "-----------------------------" << endl;
+    cout << "Total de notas:  " << n << endl;
     cout << "Média:           " << media << endl;
     cout << "Mediana:         " << mediana << endl;
     cout << "Desvio padrão:   " << desvioPadrao << endl;
@@ -79,4 +83,3 @@ int main() {
 
     return 0;
 }
-
